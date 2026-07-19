@@ -269,15 +269,10 @@ def get_price_drop_products():
 
     products = list(
 
-        products_collection.find(
+        price_history_collection.find(
 
             {
-                "$expr": {
-                    "$lt": [
-                        "$price",
-                        "$old_price"
-                    ]
-                }
+                "change_type": "decrease"
             },
 
             {
@@ -286,12 +281,19 @@ def get_price_drop_products():
 
         )
 
+        .sort(
+            [
+                ("change_amount", 1)
+            ]
+        )
+
         .limit(5)
 
     )
 
 
     return products
+
 
 
 # Price History
