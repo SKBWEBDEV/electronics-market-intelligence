@@ -16,7 +16,7 @@ async def lifespan(app: FastAPI):
 
     print("API Server Started 🚀")
 
-    # Start daily scraper scheduler
+    # Start scheduler in background
     scheduler_thread = threading.Thread(
         target=start_scheduler,
         daemon=True
