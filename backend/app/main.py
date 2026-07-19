@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+import threading
+
+from scheduler.daily import start_scheduler
 
 from app.routes.products import router as product_router
 from app.routes.scraper import router as scraper_router
@@ -12,6 +15,16 @@ from app.routes.price_summary import router as price_summary_router
 async def lifespan(app: FastAPI):
 
     print("API Server Started 🚀")
+
+    # Start daily scraper scheduler
+    scheduler_thread = threading.Thread(
+        target=start_scheduler,
+        daemon=True
+    )
+
+    scheduler_thread.start()
+
+    print("Scheduler Started ✅")
 
     yield
 

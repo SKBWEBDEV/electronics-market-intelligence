@@ -9,7 +9,7 @@ scheduler = BlockingScheduler()
 @scheduler.scheduled_job(
     "cron",
     hour=20,
-    minute=0
+    minute=12
 )
 def daily_scraping():
 
@@ -20,7 +20,7 @@ def daily_scraping():
     print("Daily scraper finished...")
 
 
-if __name__ == "__main__":
+def start_scheduler():
 
     print("Scheduler running...")
 
