@@ -9,7 +9,7 @@ scheduler = BlockingScheduler()
 @scheduler.scheduled_job(
     "cron",
     hour=19,
-    minute=35
+    minute=45
 )
 def daily_scraping():
 
