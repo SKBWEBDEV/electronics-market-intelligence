@@ -1,13 +1,12 @@
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from scraper.runner import run_scraper
 
 
-scheduler = BlockingScheduler(
+scheduler = BackgroundScheduler(
     timezone="Asia/Dhaka"
 )
 
 
-# TEST: প্রতি ১ মিনিটে চলবে
 @scheduler.scheduled_job(
     "interval",
     minutes=1
@@ -17,7 +16,6 @@ def test_scheduler():
     print("TEST SCHEDULER RUNNING")
 
 
-# Production scraper (রাত ৮টায়)
 @scheduler.scheduled_job(
     "cron",
     hour=20,
@@ -37,3 +35,5 @@ def start_scheduler():
     print("Scheduler running...")
 
     scheduler.start()
+
+    print("Scheduler Started ✅")
