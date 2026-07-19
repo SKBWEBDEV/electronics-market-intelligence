@@ -1,3 +1,17 @@
+// import StatsCard from "../components/StatsCard";
+import {
+  Package,
+  DollarSign,
+  TrendingUp,
+  TrendingDown,
+  Globe,
+  Settings
+} from "lucide-react";
+
+import InfoCard from "../components/InfoCard";
+
+
+
 import { useEffect, useState } from "react";
 
 import api from "../api/axios";
@@ -8,6 +22,7 @@ import CategoryChart from "../components/CategoryChart";
 import TrendingProducts from "../components/TrendingProducts";
 import ProductTable from "../components/ProductTable";
 import PriceDrop from "../components/PriceDrop";
+// console.log("PRICE DROP DATA:", PriceDrop);
 import PriceHistory from "../components/PriceHistory";
 import PriceHistoryChart from "../components/PriceHistoryChart";
 import PriceMovement from "../components/PriceMovement";
@@ -33,6 +48,9 @@ const Dashboard = () => {
   const [search, setSearch] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
+
+
+  const [alerts, setAlerts] = useState([]);
 
 
 
@@ -117,6 +135,11 @@ const Dashboard = () => {
         setPriceSummary(priceSummaryRes.data);
 
 
+       const alertsRes = await api.get("/price-alerts/");
+
+        setAlerts(alertsRes.data.alerts);
+
+
 
       }
 
@@ -160,11 +183,8 @@ const Dashboard = () => {
 
   return (
 
-    <div className="
-      min-h-screen
-      bg-slate-100
-      p-6 md:p-8
-    ">
+ <div
+      className="space-y-8">
 
 
       {/* Header */}
@@ -194,151 +214,269 @@ const Dashboard = () => {
 
 
 
-      {/* Stats */}
 
-      <div className="
-        grid
-        grid-cols-1
-        md:grid-cols-4
-        gap-6
-      ">
+      {/* Stats Cards */}
 
-
-        <StatsCard
-          title="Total Products"
-          value={stats.total_products}
-          icon="📦"
-        />
+<div
+  className="
+    grid
+    grid-cols-1
+    md:grid-cols-2
+    xl:grid-cols-4
+    gap-6
+    mb-8
+  "
+>
 
 
-        <StatsCard
-          title="Average Price"
-          value={`${stats.average_price} ৳`}
-          icon="💰"
-        />
+  <StatsCard
+    title="Total Products"
+    value={stats?.total_products || 0}
+    icon={Package}
+    change="+12%"
+    changeType="positive"
+    subtext="Products tracked"
+  />
 
 
-        <StatsCard
-          title="Highest Price"
-          value={`${stats.highest_price} ৳`}
-          icon="🔥"
-        />
+  <StatsCard
+    title="Average Price"
+    value={`${stats?.average_price || 0} ৳`}
+    icon={DollarSign}
+    change="+5.4%"
+    changeType="positive"
+    subtext="Market average"
+  />
 
 
-        <StatsCard
-          title="Lowest Price"
-          value={`${stats.lowest_price} ৳`}
-          icon="⬇️"
-        />
+  <StatsCard
+    title="Highest Price"
+    value={`${stats?.highest_price || 0} ৳`}
+    icon={TrendingUp}
+    change="High value"
+    changeType="neutral"
+    subtext="Premium product"
+  />
 
 
-      </div>
+  <StatsCard
+    title="Lowest Price"
+    value={`${stats?.lowest_price || 0} ৳`}
+    icon={TrendingDown}
+    change="-2.1%"
+    changeType="negative"
+    subtext="Budget product"
+  />
 
 
-
-
-
-
-      {/* Sources */}
-
-      <div className="
-        bg-white
-        rounded-2xl
-        shadow-md
-        p-6
-        mt-8
-      ">
-
-
-        <div className="
-          flex
-          flex-col
-          md:flex-row
-          justify-between
-          gap-6
-        ">
-
-
-          <div>
-
-            <h2 className="
-              text-xl
-              font-bold
-              mb-4
-            ">
-              🌐 Data Sources
-            </h2>
-
-
-            <div className="flex gap-3">
-
-              <span className="
-                bg-blue-100
-                text-blue-700
-                px-4
-                py-2
-                rounded-full
-              ">
-                ✓ Star Tech
-              </span>
-
-
-              <span className="
-                bg-purple-100
-                text-purple-700
-                px-4
-                py-2
-                rounded-full
-              ">
-                ✓ Ryans
-              </span>
-
-
-            </div>
-
-
-          </div>
+</div>
 
 
 
 
-          <div>
-
-            <h2 className="
-              text-xl
-              font-bold
-              mb-4
-            ">
-              ⚙️ Scraper Status
-            </h2>
 
 
-            <p className="
-              text-green-600
-              font-semibold
-            ">
-              🟢 System Running
-            </p>
+     {/* System Information */}
+
+<div
+className="
+grid
+grid-cols-1
+md:grid-cols-2
+gap-6
+mt-8
+"
+>
 
 
-            <p className="
-              text-sm
-              text-slate-500
-              mt-2
-            ">
-              Automatic daily scraping enabled
-            </p>
+{/* Data Sources */}
+
+<div
+className="
+relative
+overflow-hidden
+bg-white/90
+backdrop-blur-xl
+border
+border-slate-200/70
+rounded-3xl
+p-6
+shadow-sm
+hover:shadow-xl
+transition-all
+duration-300
+"
+>
 
 
-          </div>
+<div
+className="
+absolute
+top-0
+left-0
+w-full
+h-1
+bg-linear-to-r
+from-blue-500
+to-indigo-600
+"
+/>
+
+
+<h2
+className="
+text-xl
+font-bold
+text-slate-800
+mb-5
+"
+>
+🌐 Data Sources
+</h2>
 
 
 
-        </div>
+<div className="flex gap-3">
 
 
-      </div>
+<span
+className="
+bg-blue-100
+text-blue-700
+px-4
+py-2
+rounded-full
+font-medium
+text-sm
+"
+>
+✓ Star Tech
+</span>
 
+
+<span
+className="
+bg-purple-100
+text-purple-700
+px-4
+py-2
+rounded-full
+font-medium
+text-sm
+"
+>
+✓ Ryans
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{/* Scraper Status */}
+
+<div
+className="
+relative
+overflow-hidden
+bg-white/90
+backdrop-blur-xl
+border
+border-slate-200/70
+rounded-3xl
+p-6
+shadow-sm
+hover:shadow-xl
+transition-all
+duration-300
+"
+>
+
+
+<div
+className="
+absolute
+top-0
+left-0
+w-full
+h-1
+bg-linear-to-r
+from-emerald-500
+to-green-600
+"
+/>
+
+
+
+<h2
+className="
+text-xl
+font-bold
+text-slate-800
+mb-5
+"
+>
+⚙️ Scraper Status
+</h2>
+
+
+
+
+<div
+className="
+flex
+items-center
+gap-3
+"
+>
+
+<span
+className="
+w-3
+h-3
+bg-emerald-500
+rounded-full
+animate-pulse
+"
+/>
+
+
+<p
+className="
+text-green-600
+font-semibold
+"
+>
+System Running
+</p>
+
+
+</div>
+
+
+
+<p
+className="
+text-sm
+text-slate-500
+mt-3
+"
+>
+Automatic daily scraping enabled
+</p>
+
+
+
+</div>
+
+
+
+</div>
 
 
 
@@ -611,7 +749,7 @@ const Dashboard = () => {
         grid-cols-1
         lg:grid-cols-2
         gap-6
-        mt-10
+        mt-8
       ">
 
 
@@ -624,6 +762,8 @@ const Dashboard = () => {
         <PriceDrop products={priceDrops}/>
 
         <PriceMovement data={priceSummary}/>
+
+        
 
 
       </div>

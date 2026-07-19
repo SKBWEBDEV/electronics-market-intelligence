@@ -4,61 +4,167 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  CartesianGrid,
-  ResponsiveContainer
+  ResponsiveContainer,
+  CartesianGrid
 } from "recharts";
 
 
 const CategoryChart = ({ data }) => {
 
 
+  const categories = [...(data || [])]
+    .sort((a,b)=> b.products - a.products)
+    .slice(0,5);
+
+
+
   return (
 
-    <div className="bg-white p-6 rounded-2xl shadow-md mt-8">
+    <div
+      className="
+        relative
+        overflow-hidden
+        bg-white/90
+        backdrop-blur-xl
+        border
+        border-slate-200/70
+        rounded-3xl
+        shadow-sm
+        p-6
+        hover:shadow-xl
+        transition-all
+        duration-300
+      "
+    >
 
 
-      <h2 className="text-2xl font-bold mb-6">
+      {/* Top Gradient */}
 
-        📊 Category Analytics
-
-      </h2>
-
-
-
-      <ResponsiveContainer 
-        width="100%" 
-        height={350}
-      >
-
-
-        <BarChart data={data}>
-
-
-          <CartesianGrid 
-            strokeDasharray="3 3"
-          />
+      <div
+        className="
+          absolute
+          top-0
+          left-0
+          w-full
+          h-1
+          bg-gradient-to-r
+          from-purple-500
+          to-pink-500
+        "
+      />
 
 
-          <XAxis 
-            dataKey="category"
-          />
+
+      <div className="mb-6">
 
 
-          <YAxis />
+        <h2
+          className="
+            text-xl
+            font-bold
+            text-slate-900
+          "
+        >
+          📊 Category Analytics
+        </h2>
 
 
-          <Tooltip />
+
+        <p
+          className="
+            text-sm
+            text-slate-500
+            mt-1
+          "
+        >
+          Product distribution by category
+        </p>
 
 
-          <Bar 
-            dataKey="products"
-          />
+      </div>
 
 
-        </BarChart>
 
 
-      </ResponsiveContainer>
+
+      {
+        categories.length > 0 ?
+
+
+        <ResponsiveContainer
+          width="100%"
+          height={350}
+        >
+
+
+          <BarChart data={categories}>
+
+
+            <CartesianGrid
+              strokeDasharray="3 3"
+            />
+
+
+
+            <XAxis
+              dataKey="category"
+            />
+
+
+
+            <YAxis />
+
+
+
+            <Tooltip />
+
+
+
+            <Bar
+
+              dataKey="products"
+
+              radius={[
+                8,
+                8,
+                0,
+                0
+              ]}
+
+              fill="#a855f7"
+
+            />
+
+
+
+          </BarChart>
+
+
+        </ResponsiveContainer>
+
+
+
+        :
+
+
+
+        <div
+          className="
+            h-87.5
+            flex
+            items-center
+            justify-center
+            text-slate-400
+          "
+        >
+
+          No category data available
+
+        </div>
+
+
+      }
+
 
 
     </div>

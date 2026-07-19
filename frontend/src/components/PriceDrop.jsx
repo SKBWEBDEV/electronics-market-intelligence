@@ -1,23 +1,95 @@
+import React from "react";
+
+
 const PriceDrop = ({ products }) => {
 
 
   return (
 
-    <div className="bg-white rounded-2xl shadow-md p-6 mt-8">
+    <div
+      className="
+        relative
+        overflow-hidden
+        bg-white/90
+        backdrop-blur-xl
+        border
+        border-slate-200/70
+        rounded-3xl
+        shadow-sm
+        p-6
+        mt-8
+        hover:shadow-xl
+        transition-all
+        duration-300
+      "
+    >
 
 
-      <h2 className="text-2xl font-bold mb-6">
-        📉 Price Drop Alert
-      </h2>
+      {/* Top Gradient */}
+
+      <div
+        className="
+          absolute
+          top-0
+          left-0
+          w-full
+          h-1
+          bg-linear-to-r
+          from-red-500
+          to-orange-500
+        "
+      />
+
+
+
+      {/* Header */}
+
+      <div className="mb-6">
+
+
+        <h2
+          className="
+            text-2xl
+            font-bold
+            text-slate-900
+          "
+        >
+          📉 Price Drop Alert
+        </h2>
+
+
+        <p
+          className="
+            text-sm
+            text-slate-500
+            mt-1
+          "
+        >
+          Products with recent price reduction
+        </p>
+
+
+      </div>
 
 
 
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          lg:grid-cols-3
+          gap-6
+        "
+      >
 
 
 
-        {products.map((product,index)=>(
+
+      {
+        products?.map((product,index)=>(
 
 
           <div
@@ -25,45 +97,77 @@ const PriceDrop = ({ products }) => {
             key={index}
 
             className="
+              group
               border
-              rounded-xl
+              border-slate-200
+              rounded-2xl
               p-4
-              hover:shadow-lg
-              transition
+              bg-white
+              hover:-translate-y-1
+              hover:shadow-xl
+              transition-all
+              duration-300
             "
 
           >
 
 
 
-            {product.image && (
-
-              <img
-
-                src={product.image}
-
-                alt=""
-
-                className="
-                  w-full
-                  h-36
-                  object-contain
-                  mb-4
-                "
-
-              />
-
-            )}
 
 
+            {/* Image */}
+
+            <div
+              className="
+                h-40
+                bg-slate-50
+                rounded-2xl
+                flex
+                items-center
+                justify-center
+                mb-4
+              "
+            >
+
+
+            {
+              product.image && (
+
+                <img
+
+                  src={product.image}
+
+                  alt={product.name}
+
+                  className="
+                    max-h-36
+                    object-contain
+                    group-hover:scale-105
+                    transition
+                  "
+
+                />
+
+              )
+            }
+
+
+            </div>
 
 
 
-            <h3 className="
-              font-semibold
-              text-slate-800
-              line-clamp-2
-            ">
+
+
+
+
+            <h3
+              className="
+                font-semibold
+                text-slate-800
+                line-clamp-2
+                min-h-[48px]
+              "
+            >
 
               {product.name}
 
@@ -73,13 +177,17 @@ const PriceDrop = ({ products }) => {
 
 
 
-            <p className="
-              text-sm
-              text-gray-500
-              mt-2
-            ">
 
-              {product.brand || "Unknown"} 
+
+            <p
+              className="
+                text-sm
+                text-slate-500
+                mt-2
+              "
+            >
+
+              {product.brand || "Unknown"}
               {" • "}
               {product.category}
 
@@ -90,14 +198,24 @@ const PriceDrop = ({ products }) => {
 
 
 
-            <div className="mt-4">
+
+            <div
+              className="
+                mt-4
+                flex
+                items-center
+                gap-3
+              "
+            >
 
 
-              <span className="
-                text-gray-400
-                line-through
-                mr-3
-              ">
+              <span
+                className="
+                  text-sm
+                  text-slate-400
+                  line-through
+                "
+              >
 
                 {product.old_price} ৳
 
@@ -106,50 +224,60 @@ const PriceDrop = ({ products }) => {
 
 
 
-              <span className="
-                text-xl
-                font-bold
-                text-blue-600
-              ">
+              <span
+                className="
+                  text-xl
+                  font-bold
+                  text-blue-600
+                "
+              >
 
-                {product.price} ৳
+                {product.new_price} ৳
 
               </span>
 
 
-
             </div>
 
 
 
 
 
-            <div className="
-              mt-3
-              inline-block
-              bg-red-100
-              text-red-600
-              px-3
-              py-1
-              rounded-full
-              text-sm
-              font-semibold
-            ">
 
-              ↓ {product.discount} OFF
+
+
+            <div
+              className="
+                mt-4
+                inline-flex
+                items-center
+                bg-red-100
+                text-red-700
+                px-4
+                py-2
+                rounded-full
+                text-sm
+                font-bold
+              "
+            >
+
+              📉 {Math.abs(product.change_amount)} ৳ OFF
 
             </div>
+
+
 
 
 
           </div>
 
 
-        ))}
+        ))
+      }
+
 
 
       </div>
-
 
 
     </div>

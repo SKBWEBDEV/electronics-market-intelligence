@@ -1,20 +1,95 @@
+import React from "react";
+
+
 const TrendingProducts = ({ products }) => {
+
 
   return (
 
-    <div className="bg-white rounded-2xl shadow-md p-6 mt-8">
+    <div
+      className="
+        relative
+        overflow-hidden
+        bg-white/90
+        backdrop-blur-xl
+        border
+        border-slate-200/70
+        rounded-3xl
+        shadow-sm
+        p-6
+        mt-8
+        hover:shadow-xl
+        transition-all
+        duration-300
+      "
+    >
 
 
-      <h2 className="text-2xl font-bold mb-6">
-        🔥 Trending Products
-      </h2>
+      {/* Top Gradient */}
+
+      <div
+        className="
+          absolute
+          top-0
+          left-0
+          w-full
+          h-1
+          bg-linear-to-r
+          from-orange-500
+          to-red-500
+        "
+      />
 
 
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Header */}
+
+      <div className="mb-6">
 
 
-        {products.map((product, index)=>(
+        <h2
+          className="
+            text-2xl
+            font-bold
+            text-slate-900
+          "
+        >
+          🔥 Trending Products
+        </h2>
+
+
+        <p
+          className="
+            text-sm
+            text-slate-500
+            mt-1
+          "
+        >
+          Most popular electronics products
+        </p>
+
+
+      </div>
+
+
+
+
+
+
+      <div
+        className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          lg:grid-cols-3
+          gap-6
+        "
+      >
+
+
+
+      {
+        products?.map((product,index)=>(
 
 
           <div
@@ -22,55 +97,109 @@ const TrendingProducts = ({ products }) => {
             key={index}
 
             className="
+              group
               border
-              rounded-xl
+              border-slate-200
+              rounded-2xl
               p-4
-              hover:shadow-xl
-              transition
               bg-white
+              hover:-translate-y-1
+              hover:shadow-xl
+              transition-all
+              duration-300
             "
 
           >
 
 
-            {/* Product Image */}
 
-            <div className="
-              h-48
-              flex
-              items-center
-              justify-center
-              bg-slate-50
-              rounded-lg
-              mb-4
-            ">
+            {/* Ranking */}
 
-              {product.image && (
+            <div
+              className="
+                flex
+                justify-between
+                items-center
+                mb-3
+              "
+            >
 
-                <img
-  src={product.image}
-  alt=""
-  onError={(e)=>{
-    e.target.style.display="none";
-  }}
-  className="
-    max-h-44
-    object-contain
-  "
-/>
+              <span
+                className="
+                  bg-orange-100
+                  text-orange-700
+                  px-3
+                  py-1
+                  rounded-full
+                  text-xs
+                  font-semibold
+                "
+              >
+                #{index + 1} Trending
+              </span>
 
-              )}
 
             </div>
 
 
 
 
-            <h3 className="
-              font-semibold
-              text-slate-800
-              line-clamp-2
-            ">
+
+            {/* Image */}
+
+            <div
+              className="
+                h-44
+                flex
+                items-center
+                justify-center
+                bg-slate-50
+                rounded-2xl
+                mb-4
+              "
+            >
+
+              {
+                product.image && (
+
+                  <img
+
+                    src={product.image}
+
+                    alt={product.name}
+
+                    onError={(e)=>{
+                      e.target.style.display="none";
+                    }}
+
+                    className="
+                      max-h-40
+                      object-contain
+                      group-hover:scale-105
+                      transition
+                    "
+
+                  />
+
+                )
+              }
+
+
+            </div>
+
+
+
+
+
+
+            <h3
+              className="
+                font-semibold
+                text-slate-800
+                line-clamp-2
+                min-h-[48px]
+              "
+            >
 
               {product.name}
 
@@ -79,27 +208,63 @@ const TrendingProducts = ({ products }) => {
 
 
 
-            <p className="
-              text-sm
-              text-gray-500
-              mt-2
-            ">
 
-              {product.brand} • {product.category}
-
-            </p>
-
+            <div
+              className="
+                flex
+                gap-2
+                mt-3
+              "
+            >
 
 
+              <span
+                className="
+                  bg-blue-100
+                  text-blue-700
+                  px-3
+                  py-1
+                  rounded-full
+                  text-xs
+                "
+              >
+                {product.brand}
+              </span>
 
-            <div className="mt-3">
 
 
-              <span className="
-                text-xl
-                font-bold
-                text-blue-600
-              ">
+              <span
+                className="
+                  bg-slate-100
+                  text-slate-600
+                  px-3
+                  py-1
+                  rounded-full
+                  text-xs
+                "
+              >
+                {product.category}
+              </span>
+
+
+            </div>
+
+
+
+
+
+
+
+            <div className="mt-4">
+
+
+              <span
+                className="
+                  text-xl
+                  font-bold
+                  text-blue-600
+                "
+              >
 
                 {product.price} ৳
 
@@ -107,23 +272,30 @@ const TrendingProducts = ({ products }) => {
 
 
 
-              {product.old_price && (
+              {
+                product.old_price && (
 
-                <span className="
-                  ml-3
-                  text-sm
-                  line-through
-                  text-gray-400
-                ">
+                  <span
+                    className="
+                      ml-3
+                      text-sm
+                      text-slate-400
+                      line-through
+                    "
+                  >
 
-                  {product.old_price} ৳
+                    {product.old_price} ৳
 
-                </span>
+                  </span>
 
-              )}
+                )
+              }
 
 
             </div>
+
+
+
 
 
 
@@ -135,10 +307,11 @@ const TrendingProducts = ({ products }) => {
               target="_blank"
 
               className="
-                inline-block
+                inline-flex
                 mt-4
                 text-blue-600
-                font-medium
+                font-semibold
+                text-sm
                 hover:underline
               "
 
@@ -150,10 +323,13 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
+
           </div>
 
 
-        ))}
+        ))
+      }
 
 
 
