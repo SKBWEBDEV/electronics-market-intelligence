@@ -272,21 +272,18 @@ def get_price_drop_products():
         products_collection.find(
 
             {
-                "discount": {
-                    "$ne": None
+                "$expr": {
+                    "$lt": [
+                        "$price",
+                        "$old_price"
+                    ]
                 }
             },
 
             {
-                "_id":0
+                "_id": 0
             }
 
-        )
-
-        .sort(
-            [
-                ("discount",-1)
-            ]
         )
 
         .limit(5)
@@ -295,7 +292,6 @@ def get_price_drop_products():
 
 
     return products
-
 
 
 # Price History
