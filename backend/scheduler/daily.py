@@ -8,8 +8,8 @@ scheduler = BlockingScheduler()
 # প্রতিদিন সকাল 10টায় scraper চলবে
 @scheduler.scheduled_job(
     "cron",
-    hour=10,
-    minute=0
+    hour=18,
+    minute=10
 )
 def daily_scraping():
 
