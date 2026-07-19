@@ -7,19 +7,11 @@ scheduler = BackgroundScheduler(
 )
 
 
-@scheduler.scheduled_job(
-    "interval",
-    minutes=1
-)
-def test_scheduler():
-
-    print("TEST SCHEDULER RUNNING")
-
-
+# Test: আজ রাত ৮:৩৫ এ scraper চলবে
 @scheduler.scheduled_job(
     "cron",
     hour=20,
-    minute=0
+    minute=35
 )
 def daily_scraping():
 
