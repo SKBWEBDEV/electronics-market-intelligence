@@ -7,6 +7,8 @@ from contextlib import asynccontextmanager
 from apscheduler.schedulers.background import BackgroundScheduler
 from scraper.runner import run_scraper
 
+from app.routes.price_changes import router as price_changes_router
+from app.routes.price_summary import router as price_summary_router
 
 scheduler = BackgroundScheduler()
 
@@ -55,7 +57,8 @@ app.add_middleware(
 
 app.include_router(product_router)
 app.include_router(scraper_router)
-
+app.include_router(price_changes_router)
+app.include_router(price_summary_router)
 
 @app.get("/")
 def home():

@@ -18,6 +18,7 @@ def run_scraper():
 
 
     # Startech products
+
     print("Scraping Startech...")
 
     raw_products.extend(
@@ -25,12 +26,15 @@ def run_scraper():
     )
 
 
+
     # Ryans products
+
     print("Scraping Ryans...")
 
     raw_products.extend(
         scrape_ryans()
     )
+
 
 
     print(
@@ -39,8 +43,11 @@ def run_scraper():
     )
 
 
+
     new_count = 0
+
     price_changes = 0
+
 
 
 
@@ -52,10 +59,12 @@ def run_scraper():
 
 
         old_product = products_collection.find_one(
-    {
-        "url": product["url"]
-    }
-                  )
+
+            {
+                "url": product["url"]
+            }
+
+        )
 
 
 
@@ -76,6 +85,7 @@ def run_scraper():
 
 
 
+
         # Existing Product
 
         else:
@@ -92,23 +102,47 @@ def run_scraper():
 
 
 
-            # Price Change Tracking
+            # Price History
 
             if old_price != new_price:
+
+
+                change_amount = new_price - old_price
+
+
+                change_type = (
+                    "increase"
+                    if change_amount > 0
+                    else "decrease"
+                )
+
 
 
                 price_history_collection.insert_one(
 
                     {
+
                         "name": product["name"],
 
                         "brand": product.get(
                             "brand"
                         ),
 
+                        "category": product.get(
+                            "category"
+                        ),
+
                         "old_price": old_price,
 
                         "new_price": new_price,
+
+                        "change_amount": change_amount,
+
+                        "change_type": change_type,
+
+                        "source": product.get(
+                            "source"
+                        ),
 
                         "date": datetime.now()
 
@@ -121,7 +155,10 @@ def run_scraper():
 
 
 
+
+
             # Update Product
+
 
             products_collection.update_one(
 
@@ -129,30 +166,57 @@ def run_scraper():
                     "_id": old_product["_id"]
                 },
 
+
                 {
 
                     "$set":
+
                     {
 
                         "brand": product.get(
                             "brand"
                         ),
 
+
                         "category": product.get(
                             "category"
                         ),
+
 
                         "price": product.get(
                             "price"
                         ),
 
+
+                        "old_price": product.get(
+                            "old_price"
+                        ),
+
+
+                        "discount": product.get(
+                            "discount"
+                        ),
+
+
+                        "rating": product.get(
+    "rating"
+),
+
+
+                        "reviews": product.get(
+                            "reviews"
+                        ),
+
+
                         "url": product.get(
                             "url"
                         ),
 
+
                         "image": product.get(
                             "image"
                         ),
+
 
                         "source": product.get(
                             "source"
@@ -167,7 +231,9 @@ def run_scraper():
 
 
 
+
     # Save scraper log
+
 
     scraper_logs_collection.insert_one(
 
@@ -187,8 +253,11 @@ def run_scraper():
 
 
 
+
     print(
+
         f"New Products: {new_count}, Price Changes: {price_changes}"
+
     )
 
 
@@ -196,5 +265,6 @@ def run_scraper():
 
 
 if __name__ == "__main__":
+
 
     run_scraper()

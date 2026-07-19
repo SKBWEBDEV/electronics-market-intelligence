@@ -2,13 +2,15 @@ from fastapi import APIRouter, Query
 from app.models.product import Product
 from app.database.mongodb import products_collection
 
+
 from app.services.analysis import (
     get_product_stats,
     get_trending_products,
     get_brand_stats,
     get_category_stats,
     get_price_drop_products,
-    get_price_history
+    get_price_history,
+    get_demand_products
 )
 
 
@@ -94,6 +96,8 @@ def get_products(
         .skip(skip)
         .limit(limit)
     )
+
+    
 
 
     return {
@@ -181,3 +185,10 @@ def price_drop():
 def price_history():
 
     return get_price_history()
+
+
+
+@router.get("/demand")
+def demand_products():
+
+    return get_demand_products()

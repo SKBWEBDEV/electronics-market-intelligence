@@ -1,4 +1,5 @@
 import requests
+from app.utils.brand_detector import extract_brand
 from bs4 import BeautifulSoup
 from datetime import datetime
 
@@ -124,29 +125,6 @@ def scrape_ryans():
 
 
 
-        # Brand Detect
-        brands = [
-            "Dell",
-            "HP",
-            "Lenovo",
-            "Asus",
-            "Acer",
-            "MSI",
-            "Apple",
-            "Smart",
-            "Microsoft",
-            "TECNO"
-        ]
-
-
-        brand = "Unknown"
-
-
-        for b in brands:
-
-            if b.lower() in name.lower():
-                brand = b
-                break
 
 
 
@@ -154,7 +132,7 @@ def scrape_ryans():
 
             "name": name,
 
-            "brand": brand,
+            "brand": extract_brand(name),
 
             "category": "Laptop",
 

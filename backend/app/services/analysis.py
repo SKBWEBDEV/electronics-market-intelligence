@@ -2,6 +2,7 @@ from app.database.mongodb import (
     products_collection,
     price_history_collection
 )
+from collections import Counter
 
 # Total Products + Price Statistics
 def get_product_stats():
@@ -318,3 +319,155 @@ def get_price_history():
 
 
     return history
+
+
+
+
+
+# Demand Score Analysis
+
+def get_demand_products():
+
+
+    products = list(
+        products_collection.find(
+            {},
+            {
+                "_id":0
+            }
+        )
+    )
+
+
+    if not products:
+        return []
+
+
+    brand_count = Counter(
+        p.get("brand","Unknown")
+        for p in products
+    )
+
+
+    category_count = Counter(
+        p.get("category","Unknown")
+        for p in products
+    )
+
+
+    max_brand = max(
+        brand_count.values(),
+        default=1
+    )
+
+
+    max_category = max(
+       category_count.values(),
+       default=1
+    )
+
+
+    result = []
+
+
+    for product in products:
+
+
+        score = 0
+
+
+        brand = product.get(
+            "brand",
+            "Unknown"
+        )
+
+
+        category = product.get(
+            "category",
+            "Unknown"
+        )
+
+
+        # Brand popularity 25%
+
+        if brand != "Unknown":
+
+            score += (
+                brand_count[brand] /
+                max_brand
+            ) * 25
+
+
+
+        # Category popularity 25%
+
+        score += (
+            category_count[category] /
+            max_category
+        ) * 25
+
+
+
+        # Rating Score 20%
+
+        rating = product.get("rating") or 0
+
+        rating = float(rating)
+
+        score += (
+            rating / 5
+        ) * 20
+
+
+
+        # Review Score 20%
+
+        reviews = product.get("reviews") or 0
+
+        reviews = int(reviews)
+
+        score += min(
+            reviews / 1000,
+            1
+        ) * 20
+
+
+
+        # Availability 10%
+
+        if product.get("price"):
+
+            score += 10
+
+
+
+        product["demandScore"] = round(score)
+
+
+        if score >= 75:
+
+            product["trend"] = "🔥 Hot"
+
+
+        elif score >= 50:
+
+            product["trend"] = "📈 Rising"
+
+
+        else:
+
+            product["trend"] = "Normal"
+
+
+
+        result.append(product)
+
+   
+
+    result.sort(
+        key=lambda x:x["demandScore"],
+        reverse=True
+    )
+
+
+    return result[:5]

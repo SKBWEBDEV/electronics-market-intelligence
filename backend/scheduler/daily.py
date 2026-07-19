@@ -5,7 +5,7 @@ from scraper.runner import run_scraper
 scheduler = BlockingScheduler()
 
 
-# প্রতিদিন সকাল ৯টায় scraper চলবে
+# প্রতিদিন সকাল 10টায় scraper চলবে
 @scheduler.scheduled_job(
     "cron",
     hour=10,
