@@ -10,7 +10,7 @@ import ProductTable from "../components/ProductTable";
 import PriceDrop from "../components/PriceDrop";
 import PriceHistory from "../components/PriceHistory";
 import PriceHistoryChart from "../components/PriceHistoryChart";
-
+import PriceMovement from "../components/PriceMovement";
 
 const Dashboard = () => {
 
@@ -27,7 +27,8 @@ const Dashboard = () => {
   const [trending, setTrending] = useState([]);
   const [priceDrops, setPriceDrops] = useState([]);
   const [priceHistory, setPriceHistory] = useState([]);
-
+  const [priceChanges, setPriceChanges] = useState([]);
+  const [priceSummary,setPriceSummary] = useState(null);
 
   const [search, setSearch] = useState("");
   const [brand, setBrand] = useState("");
@@ -101,6 +102,19 @@ const Dashboard = () => {
         );
 
         setPriceHistory(historyRes.data);
+
+
+
+        const priceChangesRes = await api.get(
+          "/products/price-changes");
+
+        setPriceChanges(priceChangesRes.data);
+
+
+        const priceSummaryRes = await api.get(
+          "/products/price-summary");
+
+        setPriceSummary(priceSummaryRes.data);
 
 
 
@@ -605,11 +619,11 @@ const Dashboard = () => {
 
         <CategoryChart data={categories}/>
 
-
         <TrendingProducts products={trending}/>
 
-
         <PriceDrop products={priceDrops}/>
+
+        <PriceMovement data={priceSummary}/>
 
 
       </div>

@@ -1,4 +1,14 @@
-const ProductTable = ({ products }) => {
+const ProductTable = ({ products, priceChanges }) => {
+
+
+  const getPriceChange = (product) => {
+
+    return priceChanges?.find(
+      (item) => item.name === product.name
+    );
+
+  };
+
 
 
   return (
@@ -50,6 +60,11 @@ const ProductTable = ({ products }) => {
               </th>
 
 
+              <th className="p-4">
+                Price Change
+              </th>
+
+
             </tr>
 
 
@@ -62,8 +77,14 @@ const ProductTable = ({ products }) => {
           <tbody>
 
 
-          {products.map((product,index)=>(
+          {products.map((product,index)=>{
 
+
+            const change = getPriceChange(product);
+
+
+
+            return (
 
             <tr
 
@@ -87,11 +108,12 @@ const ProductTable = ({ products }) => {
 
                   {product.image && (
 
+
                     <img
 
                       src={product.image}
 
-                      alt=""
+                      alt={product.name}
 
                       className="
                         w-16
@@ -101,6 +123,7 @@ const ProductTable = ({ products }) => {
                       "
 
                     />
+
 
                   )}
 
@@ -200,6 +223,7 @@ const ProductTable = ({ products }) => {
 
                 product.discount ?
 
+
                 (
 
                   <span className="
@@ -217,7 +241,9 @@ const ProductTable = ({ products }) => {
 
                 )
 
+
                 :
+
 
                 (
 
@@ -235,10 +261,108 @@ const ProductTable = ({ products }) => {
 
 
 
+
+
+
+              <td className="p-4 text-center">
+
+
+              {
+
+
+                !change ?
+
+
+                (
+
+                  <span>
+                    -
+                  </span>
+
+                )
+
+
+
+                :
+
+
+
+                change.change_type === "increase" ?
+
+
+                (
+
+                  <span className="
+                    bg-red-100
+                    text-red-700
+                    px-3
+                    py-1
+                    rounded-full
+                    text-sm
+                  ">
+
+                    📈 +{change.change_amount} ৳
+
+                  </span>
+
+                )
+
+
+
+                :
+
+
+
+                change.change_type === "decrease" ?
+
+
+                (
+
+                  <span className="
+                    bg-green-100
+                    text-green-700
+                    px-3
+                    py-1
+                    rounded-full
+                    text-sm
+                  ">
+
+                    📉 {Math.abs(change.change_amount)} ৳
+
+                  </span>
+
+                )
+
+
+
+                :
+
+
+                (
+
+                  <span>
+                    -
+                  </span>
+
+                )
+
+
+
+              }
+
+
+              </td>
+
+
+
+
+
             </tr>
 
+            );
 
-          ))}
+
+          })}
 
 
 
