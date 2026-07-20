@@ -30,7 +30,8 @@ const CategoryChart = ({ data }) => {
         border-slate-200/70
         rounded-3xl
         shadow-sm
-        p-6
+        p-4
+        sm:p-6
         hover:shadow-xl
         transition-all
         duration-300
@@ -55,12 +56,13 @@ const CategoryChart = ({ data }) => {
 
 
 
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
 
 
         <h2
           className="
-            text-xl
+            text-lg
+            sm:text-xl
             font-bold
             text-slate-900
           "
@@ -72,7 +74,8 @@ const CategoryChart = ({ data }) => {
 
         <p
           className="
-            text-sm
+            text-xs
+            sm:text-sm
             text-slate-500
             mt-1
           "
@@ -91,56 +94,77 @@ const CategoryChart = ({ data }) => {
         categories.length > 0 ?
 
 
-        <ResponsiveContainer
-          width="100%"
-          height={350}
-        >
+        <div className="w-full overflow-x-auto">
 
 
-          <BarChart data={categories}>
+          <ResponsiveContainer
+            width="100%"
+            height={280}
+            className="sm:!h-[350px]"
+          >
 
 
-            <CartesianGrid
-              strokeDasharray="3 3"
-            />
+            <BarChart
+              data={categories}
+              margin={{
+                top:10,
+                right:10,
+                left:-10,
+                bottom:10
+              }}
+            >
 
 
-
-            <XAxis
-              dataKey="category"
-            />
-
-
-
-            <YAxis />
-
-
-
-            <Tooltip />
-
-
-
-            <Bar
-
-              dataKey="products"
-
-              radius={[
-                8,
-                8,
-                0,
-                0
-              ]}
-
-              fill="#a855f7"
-
-            />
+              <CartesianGrid
+                strokeDasharray="3 3"
+              />
 
 
 
-          </BarChart>
+              <XAxis
+                dataKey="category"
+                tick={{
+                  fontSize:12
+                }}
+              />
 
 
-        </ResponsiveContainer>
+
+              <YAxis
+                tick={{
+                  fontSize:12
+                }}
+              />
+
+
+
+              <Tooltip />
+
+
+
+              <Bar
+
+                dataKey="products"
+
+                radius={[
+                  8,
+                  8,
+                  0,
+                  0
+                ]}
+
+                fill="#a855f7"
+
+              />
+
+
+            </BarChart>
+
+
+          </ResponsiveContainer>
+
+
+        </div>
 
 
 
@@ -150,10 +174,13 @@ const CategoryChart = ({ data }) => {
 
         <div
           className="
-            h-87.5
+            h-[280px]
+            sm:h-[350px]
             flex
             items-center
             justify-center
+            text-sm
+            sm:text-base
             text-slate-400
           "
         >

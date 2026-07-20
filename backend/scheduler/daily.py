@@ -1,25 +1,56 @@
-from apscheduler.schedulers.background import BackgroundScheduler
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from apscheduler.schedulers.blocking import BlockingScheduler
+from datetime import datetime
+
 from scraper.runner import run_scraper
 
 
-scheduler = BackgroundScheduler(
+scheduler = BlockingScheduler(
     timezone="Asia/Dhaka"
 )
 
 
+def auto_scraping():
 
-@scheduler.scheduled_job(
-    "cron",
-    hour=20,
-    minute=45
+    print("==============================")
+    print("AUTO SCRAPER STARTED")
+    print(datetime.now())
+    print("==============================")
+
+
+    try:
+
+        run_scraper()
+
+        print("==============================")
+        print("AUTO SCRAPER FINISHED ✅")
+        print("==============================")
+
+
+    except Exception as e:
+
+        print("==============================")
+        print("SCRAPER ERROR ❌")
+        print(e)
+        print("==============================")
+
+
+
+
+scheduler.add_job(
+    auto_scraping,
+    "interval",
+    hours=6,
+    start_date="2026-07-20 20:3:00",
+    id="electronics_price_scraper",
+    replace_existing=True,
+    max_instances=1,
+    coalesce=True
 )
-def daily_scraping():
-
-    print("Daily scraper started...")
-
-    run_scraper()
-
-    print("Daily scraper finished...")
 
 
 def start_scheduler():
@@ -27,3 +58,8 @@ def start_scheduler():
     print("Scheduler running...")
 
     scheduler.start()
+
+
+
+if __name__ == "__main__":
+    start_scheduler()

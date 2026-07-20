@@ -1,6 +1,7 @@
 from scraper.startech import scrape_startech
 from scraper.ryans import scrape_ryans
 from scraper.cleaner import clean_product
+from scraper.daraz import scrape_daraz
 
 from app.database.mongodb import (
     products_collection,
@@ -29,6 +30,15 @@ def run_scraper():
     raw_products.extend(
         scrape_ryans()
     )
+
+    print("Scraping Daraz...")
+
+    raw_products.extend(
+        scrape_daraz()
+    )
+
+
+
 
 
     print(

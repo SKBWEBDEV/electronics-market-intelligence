@@ -16,13 +16,16 @@ const TrendingProducts = ({ products }) => {
         border-slate-200/70
         rounded-3xl
         shadow-sm
-        p-6
-        mt-8
+        p-4
+        sm:p-6
+        mt-6
+        sm:mt-8
         hover:shadow-xl
         transition-all
         duration-300
       "
     >
+
 
 
       {/* Top Gradient */}
@@ -34,7 +37,7 @@ const TrendingProducts = ({ products }) => {
           left-0
           w-full
           h-1
-          bg-linear-to-r
+          bg-gradient-to-r
           from-orange-500
           to-red-500
         "
@@ -42,30 +45,39 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
+
       {/* Header */}
 
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
 
 
         <h2
           className="
-            text-2xl
+            text-xl
+            sm:text-2xl
             font-bold
             text-slate-900
           "
         >
+
           🔥 Trending Products
+
         </h2>
+
 
 
         <p
           className="
-            text-sm
+            text-xs
+            sm:text-sm
             text-slate-500
             mt-1
           "
         >
+
           Most popular electronics products
+
         </p>
 
 
@@ -76,15 +88,21 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
+
       <div
         className="
           grid
           grid-cols-1
-          md:grid-cols-2
-          lg:grid-cols-3
-          gap-6
+          sm:grid-cols-2
+          xl:grid-cols-3
+          gap-4
+          sm:gap-6
         "
       >
+
+
+
 
 
 
@@ -101,7 +119,8 @@ const TrendingProducts = ({ products }) => {
               border
               border-slate-200
               rounded-2xl
-              p-4
+              p-3
+              sm:p-4
               bg-white
               hover:-translate-y-1
               hover:shadow-xl
@@ -110,6 +129,8 @@ const TrendingProducts = ({ products }) => {
             "
 
           >
+
+
 
 
 
@@ -133,9 +154,12 @@ const TrendingProducts = ({ products }) => {
                   rounded-full
                   text-xs
                   font-semibold
+                  whitespace-nowrap
                 "
               >
+
                 #{index + 1} Trending
+
               </span>
 
 
@@ -145,17 +169,22 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
+
+
             {/* Image */}
 
             <div
               className="
-                h-44
+                h-32
+                sm:h-44
                 flex
                 items-center
                 justify-center
                 bg-slate-50
                 rounded-2xl
-                mb-4
+                mb-3
+                sm:mb-4
               "
             >
 
@@ -173,7 +202,9 @@ const TrendingProducts = ({ products }) => {
                     }}
 
                     className="
-                      max-h-40
+                      max-h-28
+                      sm:max-h-40
+                      max-w-full
                       object-contain
                       group-hover:scale-105
                       transition
@@ -192,12 +223,18 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
+
+
             <h3
               className="
+                text-sm
+                sm:text-base
                 font-semibold
                 text-slate-800
                 line-clamp-2
-                min-h-[48px]
+                min-h-[42px]
+                sm:min-h-[48px]
               "
             >
 
@@ -209,9 +246,14 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
+
+
+
             <div
               className="
                 flex
+                flex-wrap
                 gap-2
                 mt-3
               "
@@ -226,10 +268,15 @@ const TrendingProducts = ({ products }) => {
                   py-1
                   rounded-full
                   text-xs
+                  whitespace-nowrap
                 "
               >
+
                 {product.brand}
+
               </span>
+
+
 
 
 
@@ -241,9 +288,12 @@ const TrendingProducts = ({ products }) => {
                   py-1
                   rounded-full
                   text-xs
+                  whitespace-nowrap
                 "
               >
+
                 {product.category}
+
               </span>
 
 
@@ -255,12 +305,15 @@ const TrendingProducts = ({ products }) => {
 
 
 
-            <div className="mt-4">
+
+
+            <div className="mt-3 sm:mt-4">
 
 
               <span
                 className="
-                  text-xl
+                  text-lg
+                  sm:text-xl
                   font-bold
                   text-blue-600
                 "
@@ -272,13 +325,17 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
+
               {
                 product.old_price && (
 
                   <span
                     className="
-                      ml-3
-                      text-sm
+                      ml-2
+                      sm:ml-3
+                      text-xs
+                      sm:text-sm
                       text-slate-400
                       line-through
                     "
@@ -300,6 +357,7 @@ const TrendingProducts = ({ products }) => {
 
 
 
+
             <a
 
               href={product.url}
@@ -308,10 +366,12 @@ const TrendingProducts = ({ products }) => {
 
               className="
                 inline-flex
-                mt-4
+                mt-3
+                sm:mt-4
                 text-blue-600
                 font-semibold
-                text-sm
+                text-xs
+                sm:text-sm
                 hover:underline
               "
 
@@ -320,6 +380,7 @@ const TrendingProducts = ({ products }) => {
               View Product →
 
             </a>
+
 
 
 

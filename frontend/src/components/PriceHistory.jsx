@@ -13,10 +13,29 @@ const PriceHistory = ({ products }) => {
 
   return (
 
-    <div className="bg-white rounded-xl shadow-md p-6 mt-8">
+    <div
+      className="
+        bg-white
+        rounded-2xl
+        sm:rounded-3xl
+        shadow-md
+        p-4
+        sm:p-6
+        mt-6
+        sm:mt-8
+      "
+    >
 
 
-      <h2 className="text-2xl font-bold mb-6">
+      <h2
+        className="
+          text-xl
+          sm:text-2xl
+          font-bold
+          mb-4
+          sm:mb-6
+        "
+      >
 
         📈 Price History
 
@@ -26,98 +45,90 @@ const PriceHistory = ({ products }) => {
 
 
 
-      <div className="space-y-5">
+
+
+      <div className="space-y-4 sm:space-y-5">
 
 
 
-        {products.map((item, index) => {
+        {
+          products.map((item, index) => {
 
 
-          const increase =
-
-            item.new_price > item.old_price;
-
-
-
-          const decrease =
-
-            item.new_price < item.old_price;
+            const increase =
+              item.new_price > item.old_price;
 
 
 
-          const difference = Math.abs(
-
-            item.new_price - item.old_price
-
-          );
+            const decrease =
+              item.new_price < item.old_price;
 
 
 
-
-
-          return (
-
-
-            <div
-
-              key={index}
-
-              className="border rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-
-            >
-
-
-
-              {/* Product Info */}
-
-              <div>
-
-
-                <h3 className="font-semibold text-lg">
-
-                  {item.product_name}
-
-                </h3>
-
-
-
-                <p className="text-gray-500">
-
-                  {item.brand}
-
-                </p>
-
-
-              </div>
+            const difference = Math.abs(
+              item.new_price - item.old_price
+            );
 
 
 
 
 
+            return (
 
 
-              {/* Price */}
+              <div
 
-              <div className="text-right">
+                key={index}
+
+                className="
+                  border
+                  rounded-xl
+                  p-4
+                  sm:p-5
+                  flex
+                  flex-col
+                  md:flex-row
+                  md:items-center
+                  md:justify-between
+                  gap-4
+                "
+
+              >
 
 
 
-                <div className="flex items-center gap-3 justify-end">
+                {/* Product Info */}
+
+                <div className="min-w-0">
 
 
-                  <span className="text-gray-500 line-through">
+                  <h3
+                    className="
+                      font-semibold
+                      text-base
+                      sm:text-lg
+                      text-slate-800
+                      truncate
+                    "
+                  >
 
-                    {item.old_price} ৳
+                    {item.product_name}
 
-                  </span>
+                  </h3>
 
 
 
-                  <span className="font-bold text-lg">
+                  <p
+                    className="
+                      text-sm
+                      text-gray-500
+                      mt-1
+                    "
+                  >
 
-                    {item.new_price} ৳
+                    {item.brand}
 
-                  </span>
+                  </p>
 
 
                 </div>
@@ -126,45 +137,134 @@ const PriceHistory = ({ products }) => {
 
 
 
-                {increase && (
-
-                  <p className="text-red-500 font-semibold">
-
-                    📈 +{difference} ৳ Increase
-
-                  </p>
-
-                )}
 
 
 
 
+                {/* Price */}
 
-                {decrease && (
-
-                  <p className="text-green-600 font-semibold">
-
-                    📉 -{difference} ৳ Decrease
-
-                  </p>
-
-                )}
+                <div
+                  className="
+                    text-left
+                    md:text-right
+                  "
+                >
 
 
+
+                  <div
+                    className="
+                      flex
+                      flex-wrap
+                      items-center
+                      md:justify-end
+                      gap-2
+                      sm:gap-3
+                    "
+                  >
+
+
+                    <span
+                      className="
+                        text-sm
+                        text-gray-500
+                        line-through
+                      "
+                    >
+
+                      {item.old_price} ৳
+
+                    </span>
+
+
+
+
+
+                    <span
+                      className="
+                        font-bold
+                        text-base
+                        sm:text-lg
+                        text-slate-900
+                      "
+                    >
+
+                      {item.new_price} ৳
+
+                    </span>
+
+
+                  </div>
+
+
+
+
+
+
+
+
+                  {
+                    increase && (
+
+                      <p
+                        className="
+                          text-red-500
+                          font-semibold
+                          text-sm
+                          mt-2
+                        "
+                      >
+
+                        📈 +{difference} ৳ Increase
+
+                      </p>
+
+                    )
+                  }
+
+
+
+
+
+
+
+
+                  {
+                    decrease && (
+
+                      <p
+                        className="
+                          text-green-600
+                          font-semibold
+                          text-sm
+                          mt-2
+                        "
+                      >
+
+                        📉 -{difference} ৳ Decrease
+
+                      </p>
+
+                    )
+                  }
+
+
+
+
+
+
+                </div>
 
 
 
               </div>
 
 
-
-            </div>
-
-
-          );
+            );
 
 
-        })}
+          })
+        }
 
 
 

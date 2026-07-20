@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-
-function Sidebar() {
+function Sidebar({ open, setOpen }) {
 
   const menuItems = [
     {
@@ -25,7 +24,56 @@ function Sidebar() {
 
   return (
 
-    <aside className="w-64 min-h-screen bg-slate-900 text-white p-6">
+    <aside
+
+      className={`
+        fixed
+        top-0
+        left-0
+        z-50
+        w-64
+        h-screen
+        bg-slate-900
+        text-white
+        p-6
+        transition-transform
+        duration-300
+        shadow-xl
+
+        ${open ? "translate-x-0" : "-translate-x-full"}
+
+        lg:translate-x-0
+      `}
+
+    >
+
+
+      {/* Mobile Close Button */}
+
+      <button
+
+        onClick={() => setOpen(false)}
+
+        className="
+          lg:hidden
+          absolute
+          top-4
+          right-4
+          bg-slate-800
+          hover:bg-slate-700
+          w-9
+          h-9
+          rounded-xl
+          text-xl
+        "
+
+      >
+
+        ✕
+
+      </button>
+
+
 
       {/* Logo */}
 
@@ -42,42 +90,65 @@ function Sidebar() {
       </div>
 
 
-      {/* Menu */}
 
-      <nav className="mt-8">
+      {/* Navigation */}
 
-  <div className="space-y-4">
+      <nav>
 
-    {
-      menuItems.map((item)=>(
+        <div className="space-y-3">
 
-        <NavLink
-          key={item.path}
-          to={item.path}
-          className={({isActive}) =>
-            `w-full px-4 py-3 rounded-xl block transition duration-300 ${
-              isActive
-              ? "bg-blue-600 text-white"
-              : "text-slate-300 hover:bg-slate-800"
-            }`
+
+          {
+            menuItems.map((item)=>(
+
+              <NavLink
+
+                key={item.path}
+
+                to={item.path}
+
+                onClick={() => setOpen(false)}
+
+                className={({isActive}) =>
+
+                  `
+                    block
+                    px-4
+                    py-3
+                    rounded-xl
+                    transition
+                    duration-300
+                    font-medium
+
+                    ${
+                      isActive
+                      ? "bg-blue-600 text-white shadow-lg"
+                      :
+                      "text-slate-300 hover:bg-slate-800 hover:text-white"
+                    }
+
+                  `
+                }
+
+              >
+
+                {item.name}
+
+
+              </NavLink>
+
+            ))
           }
-        >
 
-          {item.name}
 
-        </NavLink>
+        </div>
 
-      ))
-    }
+      </nav>
 
-  </div>
-
-</nav>
 
     </aside>
 
-  )
-
+  );
 }
 
 

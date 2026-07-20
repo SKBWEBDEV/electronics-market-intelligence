@@ -3,6 +3,7 @@ from app.database.mongodb import (
     price_history_collection
 )
 from collections import Counter
+from bson import ObjectId
 
 # Total Products + Price Statistics
 def get_product_stats():
@@ -270,29 +271,33 @@ def get_price_drop_products():
     products = list(
 
         price_history_collection.find(
-
             {
                 "change_type": "decrease"
-            },
-
-            {
-                "_id": 0
             }
-
         )
-
         .sort(
             [
                 ("change_amount", 1)
             ]
         )
-
         .limit(5)
 
     )
 
 
+    for product in products:
+
+        product["_id"] = str(product["_id"])
+
+
+        if "product_id" in product:
+            product["product_id"] = str(
+                product["product_id"]
+            )
+
+
     return products
+
 
 
 
@@ -461,11 +466,56 @@ def get_demand_products():
         result.append(product)
 
    
-
     result.sort(
         key=lambda x:x["demandScore"],
         reverse=True
     )
 
-
     return result[:5]
+
+
+
+# from datetime import datetime
+
+# Price Changes Summary
+
+def get_price_changes():
+
+    history = list(
+        price_history_collection.find(
+            {},
+            {
+                "_id": 0
+            }
+        )
+    )
+
+
+    increased = 0
+    decreased = 0
+    stable = 0
+
+
+    for item in history:
+
+        change_type = item.get(
+            "change_type",
+            "stable"
+        )
+
+
+        if change_type == "increase":
+            increased += 1
+
+        elif change_type == "decrease":
+            decreased += 1
+
+        else:
+            stable += 1
+
+
+    return {
+        "price_increased": increased,
+        "price_decreased": decreased,
+        "price_stable": stable
+    }

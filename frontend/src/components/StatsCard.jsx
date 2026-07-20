@@ -16,6 +16,7 @@ export default function StatsCard({
 }) {
 
   return (
+
     <div
       className="
         relative
@@ -25,7 +26,8 @@ export default function StatsCard({
         border
         border-slate-200/70
         rounded-3xl
-        p-6
+        p-4
+        sm:p-6
         shadow-sm
         hover:shadow-xl
         hover:-translate-y-1
@@ -33,6 +35,7 @@ export default function StatsCard({
         duration-300
       "
     >
+
 
       {/* Top Gradient Line */}
 
@@ -50,37 +53,63 @@ export default function StatsCard({
       />
 
 
-      <div className="flex items-start justify-between">
 
 
-        <div>
+
+      <div
+        className="
+          flex
+          items-start
+          justify-between
+          gap-3
+        "
+      >
+
+
+        <div className="min-w-0">
+
 
           <p
             className="
-              text-sm
+              text-xs
+              sm:text-sm
               font-medium
               text-slate-500
+              truncate
             "
           >
+
             {title}
+
           </p>
+
+
 
 
 
           <h3
             className="
-              mt-3
-              text-3xl
+              mt-2
+              sm:mt-3
+              text-2xl
+              sm:text-3xl
               font-bold
               text-slate-900
               tracking-tight
             "
           >
+
             {value}
+
           </h3>
 
 
+
         </div>
+
+
+
+
 
 
 
@@ -89,8 +118,10 @@ export default function StatsCard({
 
             <div
               className="
-                w-12
-                h-12
+                w-10
+                h-10
+                sm:w-12
+                sm:h-12
                 flex
                 items-center
                 justify-center
@@ -101,10 +132,18 @@ export default function StatsCard({
                 text-white
                 shadow-lg
                 shadow-blue-200
+                shrink-0
               "
             >
 
-              <Icon className="w-6 h-6"/>
+              <Icon
+                className="
+                  w-5
+                  h-5
+                  sm:w-6
+                  sm:h-6
+                "
+              />
 
             </div>
 
@@ -116,14 +155,24 @@ export default function StatsCard({
 
 
 
+
+
+
+
+
       <div
         className="
-          mt-5
+          mt-4
+          sm:mt-5
           flex
+          flex-wrap
           items-center
           justify-between
+          gap-2
         "
       >
+
+
 
 
         {
@@ -155,10 +204,12 @@ export default function StatsCard({
             >
 
 
+
               {
                 changeType === "positive" &&
                 <ArrowUpRight className="w-3 h-3"/>
               }
+
 
 
               {
@@ -167,10 +218,12 @@ export default function StatsCard({
               }
 
 
+
               {
                 changeType === "neutral" &&
                 <Minus className="w-3 h-3"/>
               }
+
 
 
               {change}
@@ -184,6 +237,9 @@ export default function StatsCard({
 
 
 
+
+
+
         {
           subtext && (
 
@@ -193,7 +249,9 @@ export default function StatsCard({
                 text-slate-400
               "
             >
+
               {subtext}
+
             </span>
 
           )
@@ -201,7 +259,15 @@ export default function StatsCard({
 
 
 
+
+
       </div>
+
+
+
+
+
+
 
 
       {/* Background Decoration */}
@@ -211,8 +277,10 @@ export default function StatsCard({
           absolute
           right-0
           bottom-0
-          w-24
-          h-24
+          w-20
+          h-20
+          sm:w-24
+          sm:h-24
           bg-blue-100
           rounded-full
           opacity-30
@@ -222,6 +290,9 @@ export default function StatsCard({
       />
 
 
+
     </div>
+
   );
+
 }

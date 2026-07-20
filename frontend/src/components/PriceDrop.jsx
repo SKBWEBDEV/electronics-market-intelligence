@@ -16,8 +16,10 @@ const PriceDrop = ({ products }) => {
         border-slate-200/70
         rounded-3xl
         shadow-sm
-        p-6
-        mt-8
+        p-4
+        sm:p-6
+        mt-6
+        sm:mt-8
         hover:shadow-xl
         transition-all
         duration-300
@@ -34,7 +36,7 @@ const PriceDrop = ({ products }) => {
           left-0
           w-full
           h-1
-          bg-linear-to-r
+          bg-gradient-to-r
           from-red-500
           to-orange-500
         "
@@ -44,12 +46,13 @@ const PriceDrop = ({ products }) => {
 
       {/* Header */}
 
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
 
 
         <h2
           className="
-            text-2xl
+            text-xl
+            sm:text-2xl
             font-bold
             text-slate-900
           "
@@ -60,7 +63,8 @@ const PriceDrop = ({ products }) => {
 
         <p
           className="
-            text-sm
+            text-xs
+            sm:text-sm
             text-slate-500
             mt-1
           "
@@ -79,12 +83,12 @@ const PriceDrop = ({ products }) => {
         className="
           grid
           grid-cols-1
-          md:grid-cols-2
-          lg:grid-cols-3
-          gap-6
+          sm:grid-cols-2
+          xl:grid-cols-3
+          gap-4
+          sm:gap-6
         "
       >
-
 
 
 
@@ -101,7 +105,8 @@ const PriceDrop = ({ products }) => {
               border
               border-slate-200
               rounded-2xl
-              p-4
+              p-3
+              sm:p-4
               bg-white
               hover:-translate-y-1
               hover:shadow-xl
@@ -114,18 +119,19 @@ const PriceDrop = ({ products }) => {
 
 
 
-
             {/* Image */}
 
             <div
               className="
-                h-40
+                h-32
+                sm:h-40
                 bg-slate-50
                 rounded-2xl
                 flex
                 items-center
                 justify-center
-                mb-4
+                mb-3
+                sm:mb-4
               "
             >
 
@@ -140,7 +146,9 @@ const PriceDrop = ({ products }) => {
                   alt={product.name}
 
                   className="
-                    max-h-36
+                    max-h-28
+                    sm:max-h-36
+                    max-w-full
                     object-contain
                     group-hover:scale-105
                     transition
@@ -159,13 +167,15 @@ const PriceDrop = ({ products }) => {
 
 
 
-
             <h3
               className="
+                text-sm
+                sm:text-base
                 font-semibold
                 text-slate-800
                 line-clamp-2
-                min-h-[48px]
+                min-h-[42px]
+                sm:min-h-[48px]
               "
             >
 
@@ -178,12 +188,13 @@ const PriceDrop = ({ products }) => {
 
 
 
-
             <p
               className="
-                text-sm
+                text-xs
+                sm:text-sm
                 text-slate-500
                 mt-2
+                truncate
               "
             >
 
@@ -198,20 +209,23 @@ const PriceDrop = ({ products }) => {
 
 
 
-
             <div
               className="
-                mt-4
+                mt-3
+                sm:mt-4
                 flex
+                flex-wrap
                 items-center
-                gap-3
+                gap-2
+                sm:gap-3
               "
             >
 
 
               <span
                 className="
-                  text-sm
+                  text-xs
+                  sm:text-sm
                   text-slate-400
                   line-through
                 "
@@ -224,9 +238,11 @@ const PriceDrop = ({ products }) => {
 
 
 
+
               <span
                 className="
-                  text-xl
+                  text-lg
+                  sm:text-xl
                   font-bold
                   text-blue-600
                 "
@@ -245,18 +261,20 @@ const PriceDrop = ({ products }) => {
 
 
 
-
             <div
               className="
-                mt-4
+                mt-3
+                sm:mt-4
                 inline-flex
                 items-center
                 bg-red-100
                 text-red-700
-                px-4
+                px-3
+                sm:px-4
                 py-2
                 rounded-full
-                text-sm
+                text-xs
+                sm:text-sm
                 font-bold
               "
             >

@@ -13,7 +13,7 @@ router = APIRouter(
 def get_price_changes():
 
     data = list(
-        price_history_collection
+        price_history_collection    
         .find({})
         .sort("date", -1)
         .limit(100)

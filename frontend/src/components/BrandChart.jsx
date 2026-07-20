@@ -30,7 +30,8 @@ const BrandChart = ({ data }) => {
         border-slate-200/70
         rounded-3xl
         shadow-sm
-        p-6
+        p-4
+        sm:p-6
         hover:shadow-xl
         transition-all
         duration-300
@@ -55,12 +56,13 @@ const BrandChart = ({ data }) => {
 
 
 
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
 
 
         <h2
           className="
-            text-xl
+            text-lg
+            sm:text-xl
             font-bold
             text-slate-900
           "
@@ -71,7 +73,8 @@ const BrandChart = ({ data }) => {
 
         <p
           className="
-            text-sm
+            text-xs
+            sm:text-sm
             text-slate-500
             mt-1
           "
@@ -90,41 +93,63 @@ const BrandChart = ({ data }) => {
         topBrands.length > 0 ?
 
 
-        <ResponsiveContainer
-          width="100%"
-          height={350}
-        >
-
-          <BarChart data={topBrands}>
+        <div className="w-full overflow-x-auto">
 
 
-            <CartesianGrid
-              strokeDasharray="3 3"
-            />
+          <ResponsiveContainer
+            width="100%"
+            height={280}
+            className="sm:!h-[350px]"
+          >
+
+            <BarChart
+              data={topBrands}
+              margin={{
+                top:10,
+                right:10,
+                left:-10,
+                bottom:10
+              }}
+            >
 
 
-            <XAxis
-              dataKey="brand"
-            />
+              <CartesianGrid
+                strokeDasharray="3 3"
+              />
 
 
-            <YAxis />
+              <XAxis
+                dataKey="brand"
+                tick={{
+                  fontSize:12
+                }}
+              />
 
 
-            <Tooltip />
+              <YAxis
+                tick={{
+                  fontSize:12
+                }}
+              />
 
 
-            <Bar
-              dataKey="products"
-              radius={[8,8,0,0]}
-              fill="#6366f1"
-            />
+              <Tooltip />
 
 
-          </BarChart>
+              <Bar
+                dataKey="products"
+                radius={[8,8,0,0]}
+                fill="#6366f1"
+              />
 
 
-        </ResponsiveContainer>
+            </BarChart>
+
+
+          </ResponsiveContainer>
+
+
+        </div>
 
 
 
@@ -134,10 +159,13 @@ const BrandChart = ({ data }) => {
 
         <div
           className="
-            h-[350px]
+            h-[280px]
+            sm:h-[350px]
             flex
             items-center
             justify-center
+            text-sm
+            sm:text-base
             text-slate-400
           "
         >

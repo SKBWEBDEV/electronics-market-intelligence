@@ -10,6 +10,7 @@ from app.services.analysis import (
     get_category_stats,
     get_price_drop_products,
     get_price_history,
+    get_price_changes,
     get_demand_products
 )
 
@@ -171,7 +172,13 @@ def category_stats():
 @router.get("/price-drop")
 def price_drop():
 
-    return get_price_drop_products()
+    data = get_price_drop_products()
+
+    for item in data:
+        if "_id" in item:
+            item["_id"] = str(item["_id"])
+
+    return data
 
 
 
@@ -192,3 +199,13 @@ def price_history():
 def demand_products():
 
     return get_demand_products()
+
+
+
+
+@router.get("/price-changes")
+def price_changes():
+
+    print("PRODUCT PRICE CHANGE ROUTE HIT")
+
+    return get_price_changes()

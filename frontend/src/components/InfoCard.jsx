@@ -18,7 +18,8 @@ export default function InfoCard({
         border
         border-slate-200/70
         rounded-3xl
-        p-6
+        p-4
+        sm:p-6
         shadow-sm
         hover:shadow-xl
         transition-all
@@ -43,19 +44,24 @@ export default function InfoCard({
       />
 
 
+
       <div
         className="
           flex
           items-center
           gap-3
-          mb-5
+          mb-4
+          sm:mb-5
         "
       >
 
+
         <div
           className="
-            w-12
-            h-12
+            w-10
+            h-10
+            sm:w-12
+            sm:h-12
             rounded-2xl
             bg-gradient-to-br
             from-indigo-500
@@ -64,8 +70,10 @@ export default function InfoCard({
             items-center
             justify-center
             text-white
-            text-xl
+            text-lg
+            sm:text-xl
             shadow-lg
+            shrink-0
           "
         >
 
@@ -74,11 +82,14 @@ export default function InfoCard({
         </div>
 
 
+
         <h2
           className="
-            text-lg
+            text-base
+            sm:text-lg
             font-bold
             text-slate-800
+            truncate
           "
         >
           {title}
@@ -89,7 +100,14 @@ export default function InfoCard({
 
 
 
-      {children}
+
+      <div className="relative z-10">
+
+        {children}
+
+      </div>
+
+
 
 
 
@@ -100,8 +118,10 @@ export default function InfoCard({
           absolute
           right-0
           bottom-0
-          w-24
-          h-24
+          w-20
+          h-20
+          sm:w-24
+          sm:h-24
           bg-blue-100
           rounded-full
           opacity-30
