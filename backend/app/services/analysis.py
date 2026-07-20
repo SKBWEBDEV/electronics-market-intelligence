@@ -305,7 +305,6 @@ def get_price_drop_products():
 def get_price_history():
 
     history = list(
-
         price_history_collection.find(
             {},
             {
@@ -317,9 +316,12 @@ def get_price_history():
             -1
         )
         .limit(20)
-
     )
 
+    for item in history:
+        for key, value in item.items():
+            if hasattr(value, "binary"):
+                item[key] = str(value)
 
     return history
 

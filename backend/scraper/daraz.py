@@ -23,13 +23,10 @@ def clean_price(price):
 
 
 
-#
 def detect_category(name):
 
     name = name.lower()
 
-
-    # Laptop first
     if any(x in name for x in [
         "laptop",
         "notebook",
@@ -42,26 +39,19 @@ def detect_category(name):
     ]):
         return "Laptop"
 
-
-
     if any(x in name for x in [
         "iphone",
         "samsung",
         "mobile",
-        "phone",
-        "smartphone"
+        "phone"
     ]):
         return "Mobile"
-
-
 
     if any(x in name for x in [
         "monitor",
         "display"
     ]):
         return "Monitor"
-
-
 
     if any(x in name for x in [
         "ssd",
@@ -70,17 +60,14 @@ def detect_category(name):
     ]):
         return "Storage"
 
-
-
     if any(x in name for x in [
         "keyboard",
         "mouse"
     ]):
         return "Component"
 
-
-
     return "Other"
+
 
 
 def scrape_daraz():
@@ -96,13 +83,9 @@ def scrape_daraz():
         page = browser.new_page()
 
 
-        for search_category,url in CATEGORIES.items():
+        for category, url in CATEGORIES.items():
 
-            print(
-                "Scraping Daraz Category:",
-                search_category
-            )
-
+            print("Scraping Daraz:", category)
 
             page.goto(
                 url,
@@ -110,8 +93,7 @@ def scrape_daraz():
                 timeout=60000
             )
 
-
-            page.wait_for_timeout(5000)
+            page.wait_for_timeout(4000)
 
 
             items = page.locator(
@@ -120,16 +102,13 @@ def scrape_daraz():
 
 
             print(
-                search_category,
-                "Products:",
+                category,
+                "Found:",
                 items.count()
             )
 
 
-
-            for i in range(
-                min(items.count(),20)
-            ):
+            for i in range(min(items.count(),20)):
 
                 item = items.nth(i)
 
@@ -139,18 +118,13 @@ def scrape_daraz():
                     name = ""
 
 
-                    if item.locator(
-                        "div.RfADt"
-                    ).count():
+                    if item.locator("div.RfADt").count():
 
                         name = item.locator(
                             "div.RfADt"
                         ).inner_text()
 
-
-                    elif item.locator(
-                        "a"
-                    ).count():
+                    elif item.locator("a").count():
 
                         name = item.locator(
                             "a"
@@ -166,16 +140,55 @@ def scrape_daraz():
 
                     price = ""
 
-
-                    if item.locator(
-                        ".ooOxS"
-                    ).count():
+                    if item.locator(".ooOxS").count():
 
                         price = item.locator(
                             ".ooOxS"
                         ).inner_text()
 
 
+
+                    # IMAGE
+
+                    image = None
+
+                    try:
+
+                        img = item.locator(
+                            "img"
+                        ).first
+
+
+                        image = img.get_attribute(
+                            "src"
+                        )
+
+
+                        if not image or image.startswith("data:image"):
+
+                            image = img.get_attribute(
+                                "data-src"
+                            )
+
+
+                        if not image:
+
+                            srcset = img.get_attribute(
+                                "srcset"
+                            )
+
+                            if srcset:
+
+                                image = srcset.split(",")[0].split(" ")[0]
+
+
+                    except:
+
+                        pass
+
+
+
+                    # LINK
 
                     link = None
 
@@ -203,41 +216,12 @@ def scrape_daraz():
                                 )
 
                     except:
+
                         pass
 
 
 
-
-                    image = None
-
-                    try:
-
-                        img = item.locator(
-                            "img"
-                        ).first
-
-
-                        image = img.get_attribute(
-                            "src"
-                        )
-
-
-                        if image and image.startswith(
-                            "data:image"
-                        ):
-
-                            image = img.get_attribute(
-                                "data-src"
-                            )
-
-
-                    except:
-                        pass
-
-
-
-
-                    product = {
+                    products.append({
 
                         "name": name,
 
@@ -255,20 +239,15 @@ def scrape_daraz():
 
                         "created_at": datetime.now()
 
-                    }
-
-
-                    products.append(product)
-
+                    })
 
 
                 except Exception as e:
 
                     print(
-                        "Daraz item error:",
+                        "Item Error:",
                         e
                     )
-
 
 
         browser.close()
@@ -282,7 +261,6 @@ def scrape_daraz():
 if __name__ == "__main__":
 
     data = scrape_daraz()
-
 
     print(
         "TOTAL DARAZ PRODUCTS:",
