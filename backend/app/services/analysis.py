@@ -5,6 +5,26 @@ from app.database.mongodb import (
 from collections import Counter
 from bson import ObjectId
 
+
+def convert_objectid(data):
+
+    if isinstance(data, list):
+        return [
+            convert_objectid(item)
+            for item in data
+        ]
+
+    if isinstance(data, dict):
+        return {
+            key: convert_objectid(value)
+            for key, value in data.items()
+        }
+
+    if isinstance(data, ObjectId):
+        return str(data)
+
+    return data
+
 # Total Products + Price Statistics
 def get_product_stats():
 
@@ -287,7 +307,7 @@ def get_price_drop_products():
     )
 
 
-    return products
+    return convert_objectid(products)
 
 
 
@@ -299,7 +319,7 @@ def get_price_history():
         price_history_collection.find(
             {},
             {
-                "_id": 0
+                "_id":0
             }
         )
         .sort(
@@ -309,8 +329,7 @@ def get_price_history():
         .limit(20)
     )
 
-
-    return history
+    return convert_objectid(history)
 
 
 
