@@ -265,12 +265,12 @@ def get_category_stats():
     return categories
 
 
+
 # Price Drop Products
-# Price Drop Products
+
 def get_price_drop_products():
 
     products = list(
-
         price_history_collection.find(
             {
                 "change_type": "decrease"
@@ -280,12 +280,10 @@ def get_price_drop_products():
             }
         )
         .sort(
-            [
-                ("change_amount", 1)
-            ]
+            "date",
+            -1
         )
-        .limit(5)
-
+        .limit(20)
     )
 
 
@@ -294,6 +292,7 @@ def get_price_drop_products():
 
 
 # Price History
+
 def get_price_history():
 
     history = list(
@@ -310,14 +309,8 @@ def get_price_history():
         .limit(20)
     )
 
-    for item in history:
-        for key, value in item.items():
-            if hasattr(value, "binary"):
-                item[key] = str(value)
 
     return history
-
-
 
 
 

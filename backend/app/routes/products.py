@@ -172,15 +172,7 @@ def category_stats():
 @router.get("/price-drop")
 def price_drop():
 
-    data = get_price_drop_products()
-
-    for item in data:
-        if "_id" in item:
-            item["_id"] = str(item["_id"])
-
-    return data
-
-
+    return get_price_drop_products()
 
 
 
