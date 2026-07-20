@@ -266,6 +266,7 @@ def get_category_stats():
 
 
 # Price Drop Products
+# Price Drop Products
 def get_price_drop_products():
 
     products = list(
@@ -273,6 +274,9 @@ def get_price_drop_products():
         price_history_collection.find(
             {
                 "change_type": "decrease"
+            },
+            {
+                "_id": 0
             }
         )
         .sort(
@@ -285,19 +289,7 @@ def get_price_drop_products():
     )
 
 
-    for product in products:
-
-        product["_id"] = str(product["_id"])
-
-
-        if "product_id" in product:
-            product["product_id"] = str(
-                product["product_id"]
-            )
-
-
     return products
-
 
 
 
