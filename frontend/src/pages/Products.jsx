@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductTable from "../components/ProductTable";
-
+import api from "../api/axios";
 
 function Products() {
 
@@ -11,69 +11,64 @@ function Products() {
 
 
 
-  useEffect(() => {
+useEffect(() => {
 
 
-    const fetchProducts = async () => {
+ const fetchProducts = async()=>{
 
 
-      try {
+  try{
 
 
-        const productRes = await fetch(
-          "http://127.0.0.1:8000/products/"
-        );
+    const productRes = await api.get(
+      "/products/"
+    );
 
 
-        const productData = await productRes.json();
-
-
-        setProducts(
-          productData.products || []
-        );
+    setProducts(
+      productRes.data.products || productRes.data
+    );
 
 
 
-        const changeRes = await fetch(
-          "http://127.0.0.1:8000/products/price-changes"
-        );
+    const changeRes = await api.get(
+      "/products/price-history"
+    );
 
 
-        const changeData = await changeRes.json();
-
-
-        setPriceChanges(
-          changeData || []
-        );
-
-
-      } catch(error) {
-
-
-        console.log(
-          "API Error:",
-          error
-        );
-
-
-      } finally {
-
-
-        setLoading(false);
-
-
-      }
-
-
-    };
+    setPriceChanges(
+      Array.isArray(changeRes.data)
+      ? changeRes.data
+      : []
+    );
 
 
 
-    fetchProducts();
+  }catch(error){
 
 
-  }, []);
+    console.log(
+      "Products Error:",
+      error
+    );
 
+
+  }finally{
+
+
+    setLoading(false);
+
+
+  }
+
+
+ };
+
+
+ fetchProducts();
+
+
+},[]);
 
 
 

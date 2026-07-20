@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import api from "../api/axios";
 
 function Analytics() {
 
@@ -10,27 +10,55 @@ function Analytics() {
 
 
 
-  useEffect(()=>{
+ useEffect(()=>{
 
 
-    fetch("http://127.0.0.1:8000/products/stats")
-      .then(res=>res.json())
-      .then(data=>setStats(data));
+  const loadAnalytics = async()=>{
+
+    try{
+
+
+      const statsRes = await api.get(
+        "/products/stats"
+      );
+
+      setStats(statsRes.data);
 
 
 
-    fetch("http://127.0.0.1:8000/products/top-brands")
-      .then(res=>res.json())
-      .then(data=>setBrands(data));
+      const brandsRes = await api.get(
+        "/products/top-brands"
+      );
+
+      setBrands(brandsRes.data);
 
 
 
-    fetch("http://127.0.0.1:8000/products/category-stats")
-      .then(res=>res.json())
-      .then(data=>setCategories(data));
+      const categoriesRes = await api.get(
+        "/products/category-stats"
+      );
+
+      setCategories(categoriesRes.data);
 
 
-  },[]);
+
+    }catch(error){
+
+      console.log(
+        "Analytics Error:",
+        error
+      );
+
+    }
+
+
+  };
+
+
+  loadAnalytics();
+
+
+},[]);
 
 
 
