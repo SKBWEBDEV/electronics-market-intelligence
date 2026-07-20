@@ -20,17 +20,17 @@ const PriceHistoryChart = ({ products }) => {
 
 
 
-  const chartData = products.map((item)=>({
+const chartData = products.map((item)=>({
 
-    name: item.brand,
+    name: `${item.brand || "Unknown"} - ${item.source || ""}`,
 
-    product_name: item.product_name,
+    product_name: item.product_name || item.name,
 
     old_price: item.old_price,
 
     new_price: item.new_price
 
-  }));
+}));
 
 
 

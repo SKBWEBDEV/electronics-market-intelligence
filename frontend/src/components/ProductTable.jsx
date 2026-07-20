@@ -134,7 +134,7 @@ const ProductTable = ({ products = [], priceChanges = [] }) => {
 
 
             const change = getPriceChange(product);
-
+            console.log(product);
 
             return (
 
@@ -154,24 +154,40 @@ const ProductTable = ({ products = [], priceChanges = [] }) => {
                 <div className="flex items-center gap-3">
 
 
-                {product.image && (
-
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="
-                    w-12
-                    h-12
-                    sm:w-14
-                    sm:h-14
-                    object-contain
-                    rounded-xl
-                    border
-                    "
-                  />
-
-                )}
-
+<div
+  className="
+  w-12
+  h-12
+  sm:w-14
+  sm:h-14
+  flex
+  items-center
+  justify-center
+  rounded-xl
+  border
+  bg-slate-100
+  overflow-hidden
+  shrink-0
+  "
+>
+<img
+  src={
+    product.image
+      ? product.image.replace(".avif", "")
+      : "https://placehold.co/60x60"
+  }
+  alt={product.name}
+  className="
+  w-full
+  h-full
+  object-contain
+  "
+  onError={(e) => {
+    e.currentTarget.src =
+      "https://placehold.co/60x60";
+  }}
+/>
+</div>
 
                 <div>
 

@@ -358,78 +358,95 @@ sm:mt-8
       {/* Pagination */}
 
       <div
-        className="
-flex
-justify-start
-sm:justify-center
-items-center
-gap-2
-mt-6
-overflow-x-auto
-pb-2
-"
+  className="
+    flex
+    justify-start
+    sm:justify-center
+    items-center
+    gap-2
+    mt-6
+    overflow-x-auto
+    pb-2
+    max-w-full
+  "
+>
+
+  {/* Previous */}
+  <button
+    disabled={page === 1}
+    onClick={() => setPage(page - 1)}
+    className="
+      px-3
+      sm:px-4
+      py-2
+      bg-slate-800
+      text-white
+      rounded-lg
+      text-sm
+      whitespace-nowrap
+      disabled:opacity-50
+    "
+  >
+    Previous
+  </button>
+
+
+  {/* Page Numbers */}
+  <div
+    className="
+      flex
+      gap-2
+      overflow-x-auto
+      max-w-[500px]
+      px-2
+    "
+  >
+
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+      <button
+        key={number}
+        onClick={() => setPage(number)}
+        className={`
+          px-3
+          py-2
+          rounded-lg
+          text-sm
+          whitespace-nowrap
+
+          ${
+            page === number
+              ? "bg-blue-600 text-white"
+              : "bg-white border"
+          }
+        `}
       >
-        <button
-          disabled={page === 1}
+        {number}
+      </button>
+    ))}
 
-          onClick={() => setPage(page - 1)}
+  </div>
 
-          className="
-px-3
-sm:px-4
-py-2
-bg-slate-800
-text-white
-rounded-lg
-text-sm
-whitespace-nowrap
-disabled:opacity-50
-"
-        >
-          Previous
-        </button>
 
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-          <button
-            key={number}
+  {/* Next */}
+  <button
+    disabled={page === totalPages}
+    onClick={() => setPage(page + 1)}
+    className="
+      px-3
+      sm:px-4
+      py-2
+      bg-slate-800
+      text-white
+      rounded-lg
+      text-sm
+      whitespace-nowrap
+      disabled:opacity-50
+    "
+  >
+    Next
+  </button>
 
-            onClick={() => setPage(number)}
-
-            className={`
-px-3
-sm:px-4
-py-2
-rounded-lg
-text-sm
-
-${page === number ? "bg-blue-600 text-white" : "bg-white border"}
-
-`}
-          >
-            {number}
-          </button>
-        ))}
-
-        <button
-          disabled={page === totalPages}
-
-          onClick={() => setPage(page + 1)}
-
-          className="
-px-3
-sm:px-4
-py-2
-bg-slate-800
-text-white
-rounded-lg
-text-sm
-whitespace-nowrap
-disabled:opacity-50
-"
-        >
-          Next
-        </button>
-      </div>
+</div>
 
       {/* Analytics */}
      

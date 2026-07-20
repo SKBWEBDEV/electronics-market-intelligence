@@ -189,20 +189,14 @@ const PriceDrop = ({ products }) => {
 
 
             <p
-              className="
-                text-xs
-                sm:text-sm
-                text-slate-500
-                mt-2
-                truncate
-              "
-            >
-
-              {product.brand || "Unknown"}
-              {" • "}
-              {product.category}
-
-            </p>
+  className="
+  text-sm
+  text-gray-500
+  mt-1
+  "
+>
+  {product.brand || "Unknown"} • {product.category || "Unknown"} • {product.source || "Unknown"}
+</p>
 
 
 
