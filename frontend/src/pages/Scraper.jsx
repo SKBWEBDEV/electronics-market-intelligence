@@ -211,6 +211,12 @@ function Scraper() {
             </p>
 
 
+            <p>
+    ✓ Daraz
+  </p>
+
+
+
           </div>
 
 

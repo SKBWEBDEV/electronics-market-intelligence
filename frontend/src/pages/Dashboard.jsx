@@ -49,13 +49,20 @@ const Dashboard = () => {
 
 useEffect(() => {
   const loadDashboard = async () => {
+
+    // Stats
     try {
       const statsRes = await api.get("/products/stats");
       setStats(statsRes.data);
+    } catch (error) {
+      console.log("Stats Error:", error);
+    }
 
 
+    // Products
+    try {
       const productsRes = await api.get(
-        `/products?page=${page}&limit=10&search=${search}&brand=${brand}&category=${category}`,
+        `/products?page=${page}&limit=10&search=${search}&brand=${brand}&category=${category}`
       );
 
       setProducts(
@@ -66,74 +73,133 @@ useEffect(() => {
         productsRes.data.total_pages || 1
       );
 
+    } catch (error) {
+      console.log("Products Error:", error);
+    }
 
+
+    // Brands
+    try {
       const brandsRes = await api.get("/products/top-brands");
-
       setBrands(brandsRes.data);
 
+    } catch (error) {
+      console.log("Brands Error:", error);
+    }
 
+
+    // Categories
+    try {
       const categoriesRes = await api.get("/products/category-stats");
-
       setCategories(categoriesRes.data);
 
+    } catch (error) {
+      console.log("Categories Error:", error);
+    }
 
+
+    // Trending
+    try {
       const trendingRes = await api.get("/products/trending");
-
       setTrending(trendingRes.data);
 
-
-const priceDropRes = await api.get("/products/price-drop");
-
-setPriceDrops(priceDropRes.data);
-
-
-// Price History
-const historyRes = await api.get("/products/price-history");
-
-setPriceHistory(historyRes.data);
+    } catch (error) {
+      console.log("Trending Error:", error);
+    }
 
 
-// Product Table Price Changes
-const priceChangesRes = await api.get("/products/price-history");
+    // Price Drop
+    try {
+      const priceDropRes = await api.get("/products/price-drop");
 
-setPriceChanges(
-  Array.isArray(priceChangesRes.data)
-    ? priceChangesRes.data
-    : []
-);
+      setPriceDrops(
+        priceDropRes.data || []
+      );
 
-
-// Price Movement Summary Card
-const priceSummaryRes = await api.get("/products/price-changes");
-
-console.log(
-  "PRICE SUMMARY:",
-  priceSummaryRes.data
-);
-
-setPriceSummary(priceSummaryRes.data);
+    } catch (error) {
+      console.log("Price Drop Error:", error);
+    }
 
 
+    // Price History
+    try {
+      const historyRes = await api.get("/products/price-history");
 
-      const alertsRes = await api.get("/price-alerts/");
+      setPriceHistory(
+        historyRes.data || []
+      );
 
-      setAlerts(
-        alertsRes.data.alerts
+    } catch (error) {
+      console.log("Price History Error:", error);
+    }
+
+
+    // Product Table Price Changes
+    try {
+
+      const priceChangesRes = await api.get(
+        "/products/price-history"
+      );
+
+      setPriceChanges(
+        Array.isArray(priceChangesRes.data)
+          ? priceChangesRes.data
+          : []
+      );
+
+    } catch (error) {
+      console.log("Price Changes Error:", error);
+    }
+
+
+    // Price Movement Summary
+    try {
+
+      const priceSummaryRes = await api.get(
+        "/products/price-changes"
+      );
+
+
+      console.log(
+        "PRICE SUMMARY:",
+        priceSummaryRes.data
+      );
+
+
+      setPriceSummary(
+        priceSummaryRes.data
       );
 
 
     } catch (error) {
+      console.log("Price Summary Error:", error);
+    }
 
-      console.log(
-        "Dashboard Error:",
-        error
+
+
+    // Alerts
+    try {
+
+      const alertsRes = await api.get(
+        "/price-alerts/"
       );
 
+
+      setAlerts(
+        alertsRes.data.alerts || []
+      );
+
+
+    } catch (error) {
+      console.log("Alerts Error:", error);
     }
+
+
   };
 
 
   loadDashboard();
+
 
 }, [page, search, brand, category]);
 

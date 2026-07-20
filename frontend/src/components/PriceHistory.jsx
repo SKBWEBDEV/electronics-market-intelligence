@@ -99,34 +99,49 @@ const PriceHistory = ({ products }) => {
 
                 {/* Product Info */}
 
-                <div
-  className="
-    text-sm
-    text-gray-500
-    mt-1
-    flex
-    gap-2
-    flex-wrap
-  "
->
+{/* Product Info */}
 
-  <span>
-    {item.brand}
-  </span>
+<div className="min-w-0">
 
-  <span>
-    • {item.source || "Unknown"}
-  </span>
+  <h3
+    className="
+      font-semibold
+      text-base
+      sm:text-lg
+      text-slate-800
+      truncate
+    "
+  >
+    {item.name}
+  </h3>
+
+
+  <div
+    className="
+      text-sm
+      text-gray-500
+      mt-1
+      flex
+      gap-2
+      flex-wrap
+    "
+  >
+
+    <span>
+      {item.brand || "Unknown"}
+    </span>
+
+    <span>
+      • {item.category || "Unknown"}
+    </span>
+
+    <span>
+      • {item.source || "Unknown"}
+    </span>
+
+  </div>
 
 </div>
-
-
-
-
-
-
-
-
 
                 {/* Price */}
 
