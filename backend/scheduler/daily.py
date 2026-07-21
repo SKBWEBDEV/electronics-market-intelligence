@@ -3,13 +3,13 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 
 from scraper.runner import run_scraper
 
 
-scheduler = BlockingScheduler(
+scheduler = BackgroundScheduler(
     timezone="Asia/Dhaka"
 )
 
