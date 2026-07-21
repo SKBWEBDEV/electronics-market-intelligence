@@ -51,6 +51,16 @@ scheduler.add_job(
     coalesce=True
 )
 
+# scheduler.add_job(
+#     auto_scraping,
+#     "interval",
+#     hours=6,
+#     id="electronics_price_scraper",
+#     replace_existing=True,
+#     max_instances=1,
+#     coalesce=True
+# )
+
 
 def start_scheduler():
 
