@@ -23,7 +23,7 @@ async def lifespan(app: FastAPI):
 
     scheduler_thread = threading.Thread(
         target=start_scheduler,
-        daemon=True
+        # daemon=True
     )
 
 

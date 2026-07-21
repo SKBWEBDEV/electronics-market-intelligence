@@ -44,8 +44,7 @@ def auto_scraping():
 scheduler.add_job(
     auto_scraping,
     "interval",
-    hours=6,
-    start_date="2026-07-20 20:00:00",
+    minutes=2,
     id="electronics_price_scraper",
     replace_existing=True,
     max_instances=1,

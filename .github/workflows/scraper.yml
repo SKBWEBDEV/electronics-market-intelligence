@@ -1,0 +1,47 @@
+name: Electronics Auto Scraper
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+
+  workflow_dispatch:
+
+
+jobs:
+
+  scrape:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+
+      - name: Install Playwright
+        run: |
+          cd backend
+          playwright install chromium
+
+
+      - name: Run Scraper
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+
+        run: |
+          cd backend
+          python scraper/runner.py
