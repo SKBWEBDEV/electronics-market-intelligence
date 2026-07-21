@@ -1,4 +1,4 @@
-print("STARTECH RUNNING")
+
 
 import requests
 from app.utils.brand_detector import extract_brand
@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 
-print("IMPORT OK")
+
 
 
 CATEGORIES = {
